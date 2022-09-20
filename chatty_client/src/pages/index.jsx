@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Button from "../components/button/Button";
 
 import axios from "../utils/axios";
 
@@ -14,20 +15,17 @@ const Home = () => {
         });
     }, []);
     return (
-        <div className="App">
-            <h1>Hello</h1>
-            <p>{message}</p>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
+        <div className="container">
+            <h1 className="text-center mt-4 mb-2">Welcome to CHATTY</h1>
+            <div className="col-12 col-lg-4 offset-lg-4 offset-md-3 col-md-6">
+                <Link to="/login">
+                    <Button>Login</Button>
+                </Link>
+                <br />
+                <Link to="/register">
+                    <Button>Register</Button>
+                </Link>
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
         </div>
     );
 };

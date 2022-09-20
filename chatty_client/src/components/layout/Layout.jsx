@@ -1,17 +1,27 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Navbar from "../navbar/Navbar";
+
+import { Toaster } from "react-hot-toast";
 
 const Layout = () => {
     return (
         <main className="container-fluid">
-            <nav class="navbar bg-light">
-                <div class="container-fluid align-self-center">
-                    <a class="navbar-brand" href="#">
-                        Bootstrap
-                    </a>
-                </div>
-            </nav>
-            <Outlet />
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+                gutter={6}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    duration: 5000,
+                }}
+            />
+            <Navbar />
+            <div className="container">
+                <Outlet />
+            </div>
         </main>
     );
 };
