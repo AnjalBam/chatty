@@ -2,7 +2,7 @@ import React from "react";
 import axios from "../utils/axios";
 import { toast } from "react-hot-toast";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -100,6 +100,10 @@ const Register = () => {
                     <button type="submit" className="btn btn-primary mt-2">
                         Register
                     </button>
+
+                    <div className="mt-3">
+                        <p>Or <Link to='/login'>login</Link>?</p>
+                    </div>
                 </form>
             </div>
         </div>
