@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 
 import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
@@ -8,18 +7,19 @@ import Register from "./pages/Register";
 
 import Protected from "./components/protected";
 
+function protectMe(Component) {
+    return (
+        <Protected>
+            <Component />
+        </Protected>
+    );
+}
+
 function App() {
     return (
         <Routes>
             <Route element={<Layout />}>
-                <Route
-                    path="/"
-                    element={
-                        <Protected>
-                            <Home />
-                        </Protected>
-                    }
-                />
+                <Route path="/" element={protectMe(Home)} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Route>
