@@ -39,7 +39,7 @@ const Register = () => {
     };
 
     return (
-        <div className="col-12 col-md-6 offset-md-3 mt-4">
+        <div className="col-12 col-md-6 offset-md-3 col-lg-4 offset-md-4 mt-4">
             <div className="title text-center">
                 <h3>Register to</h3>
                 <h1 className="nav-title">Chatty</h1>

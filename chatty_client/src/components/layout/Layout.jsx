@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 const Layout = () => {
     return (
-        <main className="container-fluid">
+        <main className="container-fluid m-0 p-0 d-flex flex-column flex-grow-1">
             <Toaster
                 position="bottom-center"
                 reverseOrder={false}
@@ -19,9 +19,7 @@ const Layout = () => {
                 }}
             />
             <Navbar />
-            <div className="container">
-                <Outlet />
-            </div>
+            <Outlet />
         </main>
     );
 };

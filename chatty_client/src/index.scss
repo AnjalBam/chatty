@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo+Play:wght@800&family=Poppins:ital,wght@0,300;0,400;0,600;1,400&display=swap");
-@import "./variables.scss";
+@import "./styles/variables.scss";
 
 * {
     margin: 0;
@@ -15,3 +15,14 @@
 a {
     text-decoration: none;
 }
+
+html, body, #root {
+    height: 100%;
+    background-color: rgb(224, 224, 224);
+}
+
+main {
+    height: 100%;
+}
+
+@import './styles/chats'
