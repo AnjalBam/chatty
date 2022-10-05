@@ -1,28 +1,40 @@
-const app = require("express")();
+const express = require("express");
+
+const app = express();
 
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const http = require("http");
+const socketIO = require("socket.io");
+
+const server = http.createServer(app);
+
 require("dotenv").config();
 
 const { setupDb } = require("./db/setupDb");
 
 const port = process.env.PORT || 4000;
 
+const io = socketIO(server);
+
+const useSocketIo = require("./socket");
+
+useSocketIo(io);
+
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(morgan("dev"));
 
-app.get("/",async (req, res) => {
-    res.send({ message: "Hello! I'm Chatty."});
+app.get("/", async (req, res) => {
+  res.send({ message: "Hello! I'm Chatty." });
 });
 
 app.use("/api/v1", require("./routes"));
 
 setupDb();
 
-const server = app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
 
 module.exports = server;
