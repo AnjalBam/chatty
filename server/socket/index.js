@@ -1,6 +1,6 @@
 function useSocketIo(io) {
-  io.on("connection", () => {
-    console.log("Connected");
+  io.on("connection", (socket) => {
+    console.log("Connected ", socket.id);
   });
 }
 

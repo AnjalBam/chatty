@@ -14,14 +14,16 @@ require("dotenv").config();
 const { setupDb } = require("./db/setupDb");
 
 const port = process.env.PORT || 4000;
+app.use(cors());
 
-const io = socketIO(server);
+const io = socketIO(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 const useSocketIo = require("./socket");
 
-useSocketIo(io);
-
-app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -36,5 +38,7 @@ setupDb();
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+useSocketIo(io);
 
 module.exports = server;
