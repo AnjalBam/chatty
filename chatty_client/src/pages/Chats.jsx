@@ -7,10 +7,10 @@ import { io } from "socket.io-client";
 const Chats = () => {
   React.useEffect(() => {
     console.log("connect to socketio");
-    const socket = io("http://localhost:4000/");
+    // const socket = io("http://localhost:4000/");
   });
   return (
-    <div className="d-flex p-3 m-3 mx-auto h-100 w-100 chats bg-light">
+    <div className="d-flex p-3 m-3 mx-auto w-100 chats bg-light chat-wrapper">
       <Sidebar />
       <ChatBox />
     </div>

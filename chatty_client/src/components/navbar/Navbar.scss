@@ -1,3 +1,9 @@
+@import "../../styles/variables";
+
+nav {
+    height: $nav-height;
+}
+
 .nav-logo {
     padding-right: 0.25rem;
 }
