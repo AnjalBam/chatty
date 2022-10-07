@@ -13,7 +13,8 @@ const authMiddleware = (socket, next) => {
 
   try {
     const payload = verifyToken(token);
-    socket.user = payload;
+    socket.username = payload.username;
+    socket.userId = payload.id;
     next();
   } catch (e) {
     err.message = `Invalid token: ${e.toString()}`;
