@@ -1,11 +1,10 @@
-import React from "react";
+import {useState} from "react";
 import "./modal.scss";
 
-const Modal = ({ isShown, children }) => {
-  const [shown, setShown] = React.useState(isShown);
+const Modal = ({ isShown, setIsShown, children }) => {
   return (
-    <div className={`my-modal ${shown ? "" : "d-none"}`}>
-      <div className="close" onClick={() => setShown(false)}>
+    <div className={`my-modal ${isShown ? "" : "d-none"}`}>
+      <div className="close" onClick={() => setIsShown(false)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

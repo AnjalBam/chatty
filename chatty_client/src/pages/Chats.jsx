@@ -4,8 +4,6 @@ import ChatBox from "../components/chatbox/ChatBox";
 import Sidebar from "../components/sidebar/Sidebar";
 
 import { io } from "socket.io-client";
-import Modal from "../modal/Modal";
-import AllUsers from "../components/allusers/AllUsers";
 
 const Chats = () => {
   let socket;
@@ -51,9 +49,7 @@ const Chats = () => {
 
   return (
     <div className="d-flex p-3 m-3 mx-auto w-100 chats bg-light chat-wrapper">
-      <Modal isShown={true}>
-        <AllUsers />
-      </Modal>
+      
       <Sidebar conversations={conversations} />
       <ChatBox socket={socket} />
     </div>
