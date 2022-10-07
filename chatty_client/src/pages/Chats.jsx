@@ -18,6 +18,10 @@ const Chats = () => {
       autoConnect: false,
     });
 
+    socket.on("session", (data) => {
+      socket.userId = data.userId;
+    });
+
     socket.auth = { token };
 
     socket.connect();
