@@ -3,17 +3,21 @@ const { verifyToken } = require("../../utils/jwt");
 const authMiddleware = (socket, next) => {
   const token = socket.handshake.auth.token;
 
+  const err = new Error();
+  err.data = { type: "unauthorized" };
+
   if (!token) {
-    socket.emit("error", {message: "Unauthenticated Socket."})
-    return next(new Error("No token provided."));
+    err.message = "No token provided.";
+    return next(err);
   }
 
   try {
     const payload = verifyToken(token);
     socket.user = payload;
     next();
-  } catch (err) {
-    next(new Error(`Invalid token: ${err.toString()}`));
+  } catch (e) {
+    err.message = `Invalid token: ${e.toString()}`;
+    next(err);
   }
 };
 
