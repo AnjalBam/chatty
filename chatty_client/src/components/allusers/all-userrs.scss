@@ -1,0 +1,65 @@
+.all-users {
+  $header-height: 38px;
+  $padding: 1.5rem;
+  $dialog-height: 600px;
+  $dialog-width: 400px;
+  max-height: $dialog-height;
+  background-color: white;
+  min-width: $dialog-width;
+  overflow: hidden;
+  padding: $padding;
+  border-radius: 10px;
+
+  .users-title h3 {
+    height: $header-height;
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    padding-bottom: 0.5rem;
+    // padding-top: 0.5rem;
+    border-bottom: 1px solid rgb(204, 204, 204);
+  }
+
+  ul.users {
+    max-height: calc($dialog-height - (2 * $padding) - $header-height);
+    overflow-y: auto;
+    display: block;
+    padding: 0;
+
+    .user {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      transition: all ease-in-out 0.2s;
+      cursor: pointer;
+      border-bottom: 1px solid #e0e0e0;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      .avatar {
+        img {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+        }
+      }
+
+      .details {
+        * {
+          margin: 0;
+        }
+        h3 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          line-height: 1.25rem;
+        }
+        h6 {
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

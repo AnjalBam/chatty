@@ -13,8 +13,10 @@ axiosInstance.interceptors.response.use(
   function (err) {
     console.log("err received");
     if (err.response?.status === 401) {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
+      // window.location.href = '/login';
     }
+    
     return err;
   }
 );
