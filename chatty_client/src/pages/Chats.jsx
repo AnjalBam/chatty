@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 const Chats = () => {
   let socket;
   const navigate = useNavigate();
-  const [conversations, setConversations] = React.useState({});
+  const [conversations, setConversations] = React.useState([]);
 
   React.useEffect(() => {
     console.log("connect to socketio");

@@ -6,6 +6,8 @@ import AllUsers from "../allusers/AllUsers";
 
 const Sidebar = ({ conversations }) => {
   const [shown, setShown] = useState(false);
+
+  if (!conversations) conversations = [];
   
   return (
     <div id="sidebar" className="d-none d-md-block col-md-3 p-0 pe-3">
