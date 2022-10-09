@@ -12,8 +12,6 @@ const ChatBox = () => {
     }
   }, [searchParams]);
 
-  console.log({ convId });
-
   if (!convId) {
     return (
       <>

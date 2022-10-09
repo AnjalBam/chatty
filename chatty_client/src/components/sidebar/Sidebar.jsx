@@ -5,13 +5,21 @@ import Modal from "../modal/Modal";
 import AllUsers from "../allusers/AllUsers";
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
+import { useSearchParams } from "react-router-dom";
 
 const Sidebar = ({ conversations }) => {
   const [shown, setShown] = useState(false);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const socket = useContext(SocketContext);
 
   if (!conversations) conversations = [];
+
+  const handleSearchParams = convId => () => {
+    searchParams.set('c', convId);
+    setSearchParams(searchParams);
+  }
 
   return (
     <div id="sidebar" className="d-none d-md-block col-md-3 p-0 pe-3">
@@ -37,7 +45,7 @@ const Sidebar = ({ conversations }) => {
               convDetails.name = "You"
             }
             return (
-              <div className="sidebar-list-item">
+              <div className="sidebar-list-item" onClick={handleSearchParams(conv?._id)}>
                 <div className="sidebar-list-item-image">
                   <div className="active-status active"></div>
                   <img
