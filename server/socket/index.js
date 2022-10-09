@@ -1,20 +1,46 @@
 const { authMiddleware } = require("../middlewares/io");
-const { getConversationsByUserId } = require("../services/conversations");
+const {
+  getConversationsByUserId,
+  createConversation,
+} = require("../services/conversations");
 
 function useSocketIo(io) {
   io.on("connection", async (socket) => {
-
-    socket.emit('session', {
-      userId: socket.userId
-    })
+    socket.emit("session", {
+      userId: socket.userId,
+    });
 
     console.log("Connected ", socket.id);
 
-    socket.emit("all_conversations", await getConversationsByUserId('UserId'))
+    async function emitConversations() {
+      socket.emit(
+        "all_conversations",
+        await getConversationsByUserId(socket.userId)
+      );
+    }
 
-    socket.on('messageInConversation', data => {
-      console.log('data', data);
-    })
+    emitConversations();
+
+    socket.on("new_conversation", async (data) => {
+      const finalData = {};
+      if (!data.name) finalData["name"] = "";
+
+      finalData["participants"] = [socket.userId, ...data.participants];
+
+      const newConv = await createConversation(finalData);
+
+      if (newConv) {
+        await emitConversations();
+      }
+    });
+
+    socket.on("messageInConversation", (data) => {
+      console.log("data", data);
+    });
+
+    socket.on("test", (data) => {
+      console.log(data);
+    });
 
     socket.onAny((event, ...args) => {
       console.log(event, args);
