@@ -4,28 +4,23 @@ import ChatBox from "../components/chatbox/ChatBox";
 import Sidebar from "../components/sidebar/Sidebar";
 
 import { io } from "socket.io-client";
+import { useContext } from "react";
+import { SocketContext } from "../context/socket";
 
 const Chats = () => {
-  let socket;
   const navigate = useNavigate();
   const [conversations, setConversations] = React.useState([]);
 
-  React.useEffect(() => {
-    console.log("connect to socketio");
-    const token = localStorage.getItem("token");
-    socket = io("http://localhost:4000/", {
-      autoConnect: false,
-    });
+  const socket = useContext(SocketContext);
 
+  React.useEffect(() => {
+    // Socket io
     socket.on("session", (data) => {
       socket.userId = data.userId;
     });
 
-    socket.auth = { token };
-
-    socket.connect();
-
     socket.on("all_conversations", (data) => {
+      console.log(data);
       setConversations(data);
     });
 
@@ -39,8 +34,6 @@ const Chats = () => {
       }
     });
 
-    socket.connect();
-
     return () => {
       socket.off("connect_error");
       socket.off("all_conversations");
@@ -51,7 +44,7 @@ const Chats = () => {
     <div className="d-flex p-3 m-3 mx-auto w-100 chats bg-light chat-wrapper">
       
       <Sidebar conversations={conversations} />
-      <ChatBox socket={socket} />
+      <ChatBox />
     </div>
   );
 };

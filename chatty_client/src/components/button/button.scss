@@ -1,0 +1,10 @@
+@import '../../styles/variables';
+
+.button {
+    background-color: $primary-dark;
+    border: none;
+
+    &:hover {
+        background-color: $primary-darker;
+    }
+}

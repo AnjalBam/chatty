@@ -2,10 +2,13 @@ import React from "react";
 import axios from "../../utils/axios";
 import "./all-userrs.scss";
 import { toast } from "react-hot-toast";
+import { SocketContext } from "../../context/socket";
 
-const AllUsers = () => {
+const AllUsers = ({ isShown }) => {
   const [users, setUsers] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const socket = React.useContext(SocketContext);
 
   React.useEffect(() => {
     axios.defaults.headers.common[
@@ -31,6 +34,11 @@ const AllUsers = () => {
       });
   }, []);
 
+  const createConversations = (convId) => () => {
+    console.log("createConversation", convId);
+    socket.emit("new_conversation", { participants: [convId] });
+  };
+
   return (
     <div className="all-users">
       <div className="users-title">
@@ -46,7 +54,11 @@ const AllUsers = () => {
           {users.length !== 0 ? (
             users.map((user) => {
               return (
-                <li className="user">
+                <li
+                  className="user"
+                  key={user._id}
+                  onClick={createConversations(user._id)}
+                >
                   <div className="avatar">
                     <img
                       src={`https://joeschmoe.io/api/v1/${user.username}`}

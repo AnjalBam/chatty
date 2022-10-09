@@ -3,12 +3,16 @@ import Button from "../button/Button";
 
 import Modal from "../modal/Modal";
 import AllUsers from "../allusers/AllUsers";
+import { useContext } from "react";
+import { SocketContext } from "../../context/socket";
 
 const Sidebar = ({ conversations }) => {
   const [shown, setShown] = useState(false);
 
+  const socket = useContext(SocketContext);
+
   if (!conversations) conversations = [];
-  
+
   return (
     <div id="sidebar" className="d-none d-md-block col-md-3 p-0 pe-3">
       <div className="sidebar-header">
@@ -20,19 +24,30 @@ const Sidebar = ({ conversations }) => {
       </div>
       <div className="sidebar-list">
         {conversations.length !== 0 ? (
-          conversations.map(() => {
+          conversations.map((conv) => {
+            const participants = (conv.participants || []).filter(
+              (participant) => participant._id !== socket.userId
+            );
+            const convDetails = {
+              name: conv.name || participants?.[0]?.fullName,
+              convImage: `https://joeschmoe.io/api/v1/${participants?.[0]?.username || conv._id}`,
+              subHead: "----"
+            }
+            if (participants.length === 0) {
+              convDetails.name = "You"
+            }
             return (
               <div className="sidebar-list-item">
                 <div className="sidebar-list-item-image">
                   <div className="active-status active"></div>
                   <img
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fmiddle%2F379-3797946_programming-clipart.png&f=1&nofb=1&ipt=78e2a371d91a9000d2d8a0daef5faac97bea981734b21086d3e0a86c36940a4b&ipo=images"
+                    src={convDetails.convImage}
                     alt="user"
                   />
                 </div>
                 <div className="sidebar-list-item-name">
-                  <h4>John Doe</h4>
-                  <p>Hey, how are you?</p>
+                  <h4>{convDetails.name}</h4>
+                  <p>{convDetails.subHead}</p>
                 </div>
               </div>
             );
