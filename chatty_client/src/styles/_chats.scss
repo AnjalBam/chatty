@@ -146,7 +146,7 @@
     overflow: hidden;
 
     #messages {
-      max-height: calc(100% - $header-height - $footer-height);
+      min-height: calc(100% - $header-height - $footer-height);
       overflow-y: scroll;
 
       //   &::-webkit-scrollbar {

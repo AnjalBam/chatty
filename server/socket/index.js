@@ -2,7 +2,9 @@ const { authMiddleware } = require("../middlewares/io");
 const {
   getConversationsByUserId,
   createConversation,
+  getConversationById,
 } = require("../services/conversations");
+const { createMessage } = require("../services/messages");
 
 function useSocketIo(io) {
   io.on("connection", async (socket) => {
@@ -41,6 +43,22 @@ function useSocketIo(io) {
     socket.on("test", (data) => {
       console.log(data);
     });
+
+    socket.on("new_message", async (data) => {
+      const processedData = {};
+      processedData['conversation'] = data.convId || "";
+      processedData['content'] = data.message || "";
+      processedData['sentBy'] = socket.userId;
+
+      const conversation = await getConversationById(data.convId);
+
+      try {
+        const message = await createMessage(processedData);
+        socket.emit('new_message', message);
+      } catch (err) {
+        socket.emit(new Error(err));
+      }
+    })
 
     socket.onAny((event, ...args) => {
       console.log(event, args);

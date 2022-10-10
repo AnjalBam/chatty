@@ -20,7 +20,6 @@ const Chats = () => {
     });
 
     socket.on("all_conversations", (data) => {
-      console.log(data);
       setConversations(data);
     });
 
